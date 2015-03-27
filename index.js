@@ -57,17 +57,16 @@ exports.hash = function(pwd, salt, fn){
     if (!salt) return fn(new Error('salt missing'));
     crypto.pbkdf2(pwd, salt, iterations, len, function(err, hash){
       if (err) return fn(err);
-      fn(null, hash.toString('base64'));
+      fn(null, hash);
     });
   } else {
     fn = salt;
     if (!pwd) return fn(new Error('password missing'));
     crypto.randomBytes(len, function(err, salt){
       if (err) return fn(err);
-      salt = salt.toString('base64');
       crypto.pbkdf2(pwd, salt, iterations, len, function(err, hash){
         if (err) return fn(err);
-        fn(null, salt, hash.toString('base64'));
+        fn(null, salt, hash);
       });
     });
   }
