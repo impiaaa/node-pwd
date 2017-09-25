@@ -122,7 +122,7 @@ function generateHash(pwd, salt) {
       // iterations, len, and digest are file scoped
       crypto.pbkdf2(pwd, salt, iterations, len, digest, function(err, hash){
         if (err) { return reject(err); }
-        resolve({ salt, hash: hash.toString('base64') })
+        resolve({ salt, hash: hash })
       });
     })
   })
@@ -139,7 +139,7 @@ function generateSalt() {
     // len is file scoped
     crypto.randomBytes(len, function(err, salt) {
       if (err) { return reject(err); }
-      resolve(salt.toString('base64'))
+      resolve(salt)
     })
   })
 }
